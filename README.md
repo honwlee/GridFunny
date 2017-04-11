@@ -4,7 +4,9 @@
 ![canvas event](https://raw.githubusercontent.com/honwlee/GridFunny/master/public/images/css-grid.gif)
 ### start
   $ git clone https://github.com/honwlee/GridFunny.git
+  
   $ cd GridFunny; npm install
+  
   $ npm start
 
 ### access
@@ -15,6 +17,7 @@
   http://localhost:5000/test
 
   http://localhost:5000/test?file=event
+  
   file参数是public/javascripts/src/tests 文件目录下的文件名，比如上面url中指向的是event.js
 
 ### Contributors
