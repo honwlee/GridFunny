@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{title}}</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <script  src='/javascripts/lib/require.min.js'></script>
+    <script type="text/javascript">
+        requirejs.config = {
+            baseUrl: "./",
+            paths: {
+                src: "javascript/src"
+            },
+            waitSeconds: 60
+        }
+    </script>
+    {{{body}}}
+  </body>
+</html>
