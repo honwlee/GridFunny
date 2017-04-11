@@ -1,6 +1,7 @@
 # GridFunny
 一个学习Canvas的例子，创建一个表格，然后基于表格填充内容
-
+### DEMO
+![canvas event](https://raw.githubusercontent.com/honwlee/GridFunny/master/public/images/css-grid.gif)
 ### start
   $ git clone https://github.com/honwlee/GridFunny.git
   $ cd GridFunny; npm install
