@@ -8,13 +8,22 @@ require([
             window.oRequestAnimationFrame ||
             window.msRequestAnimationFrame ||
             function( /* function */ callback, /* DOMElement */ element) {
-                window.setTimeout(callback, 1000 / 60 * 5);
+                window.setTimeout(callback, 1000 / 60);
             };
+    })();
+
+    window.cancelRequestAnimFrame = (function() {
+        return window.cancelAnimationFrame ||
+            window.webkitCancelRequestAnimationFrame ||
+            window.mozCancelRequestAnimationFrame ||
+            window.oCancelRequestAnimationFrame ||
+            window.msCancelRequestAnimationFrame ||
+            clearTimeout;
     })();
 
     var grid = new GridFunny({
         canvasClassName: "bg-canvas",
-        prevDraw: function() {
+        nextDraw: function() {
             var self = this;
             var findDistance = function(p1, p2) {
                 return Math.sqrt(Math.pow(p2.x - p1.x, 2) + Math.pow(p2.y - p1.y, 2));
@@ -24,22 +33,21 @@ require([
             if (window.innerHeight > 500)
                 this.canvas.style.top = (window.innerHeight - 500) / 2 + 'px';
 
-            var Factory = function() {
-                this.x = Math.round(Math.random() * w) + self.pixelX;
-                this.y = Math.round(Math.random() * h) + self.pixelY;
-                this.rad = Math.round(Math.random() * 1) + 1;
-                this.rgba = self._randColor();
-                this.vx = Math.round(Math.random() * 3) - 1.5 + self.pixelX;
-                this.vy = Math.round(Math.random() * 3) - 1.5 + self.pixelY;
-            }
             var ctx = this.context,
                 num = this.settings.gridNum,
                 particles = [],
                 patriclesNum = 500,
                 w = this.pixelX * num,
                 h = this.pixelY * num;
+            var Factory = function() {
+                this.x = Math.round(Math.random() * w) + self.pixelX;
+                this.y = Math.round(Math.random() * h) + self.pixelY;
+                this.rad = Math.round(Math.random() * 1) + 1;
+                this.rgba = self._randColor();
+                this.vx = Math.round(Math.random() * 3) - 1.5;
+                this.vy = Math.round(Math.random() * 3) - 1.5;
+            }
             ctx.globalCompositeOperation = 'lighter';
-
             for (var i = 0; i < patriclesNum; i++) {
                 particles.push(new Factory);
             }
@@ -77,9 +85,9 @@ require([
                 temp.x += temp.vx;
                 temp.y += temp.vy;
 
-                if (temp.x > w) temp.x = 0;
+                if (temp.x > w) temp.x = self.pixelX;
                 if (temp.x < 0) temp.x = w;
-                if (temp.y > h) temp.y = 0;
+                if (temp.y > h) temp.y = self.pixelY;
                 if (temp.y < 0) temp.y = h;
             }
         }

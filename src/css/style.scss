@@ -1,0 +1,27 @@
+body {
+    padding: 50px;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+    color: #00B7FF;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    canvas {
+        position: absolute;
+        border: 5px solid rgba(255, 255, 255, 0.1);
+        box-shadow: inset 0 0 100px #4162a9;
+        transform: translateZ(0);
+    }
+    background: #222;
+    .transform-canvas {
+        margin: 10px;
+        box-shadow: inset 0 0 100px #ccc;
+    }
+}

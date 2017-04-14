@@ -1,15 +1,18 @@
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
+var webpack = require('webpack');
+var webpackMiddleware = require('webpack-dev-middleware');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
+var config = require("./webpack.config");
 var index = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
 
+var compiler = webpack(config);
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
@@ -24,11 +27,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
-app.use('/src', express.static('public/javascripts/src'));
+app.use(webpackMiddleware(compiler));
 app.get('/test', function(req, res, next) {
     res.render('test', {
         title: '这是测试页面',
-        file: req.query.file || "clone"
+        file: "test_" + (req.query.file || "clone")
     });
 });
 // catch 404 and forward to error handler
